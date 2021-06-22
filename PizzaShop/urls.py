@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from pizza.views import get_pizza
+from pizza.views import get_pizza,add_pizza,delete_order
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/pizza',get_pizza),
+    path('api/add/pizza',add_pizza),
+    path('api/delete/pizza',delete_order),
 ]
