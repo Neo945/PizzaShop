@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.core.exceptions import ValidationError
 from pizza.models import Pizza, Topping
 from pizza.serializer import PizzaCreateSerializer, PizzaSerializer
 from django.shortcuts import render
@@ -55,6 +57,11 @@ def get_order_by_type(request):
     type = str(request.data.get('type'))
     qs = Pizza.objects.filter(type=type.lower())
     return Response(PizzaSerializer(qs,many=True).data,status=201)
+
+
+def is_valid(value):
+    if value.lower() not in settings.PIZZA_TYPE:
+        raise ValidationError('Not a valid type')
 
 @api_view(['GET','POST'])
 def update_order(request,id):

@@ -4,11 +4,11 @@ from django.conf import settings
 
 User = settings.AUTH_USER_MODEL
 def is_valid(value):
-    if value.lower() not in ['regular','square']:
+    if value.lower() not in settings.PIZZA_TYPE:
         raise ValidationError('Not a valid type')
 
 def is_size_valid(value):
-    if value.lower() not in ['small','large','medium','extra large']:
+    if value.lower() not in settings.PIZZA_SIZE:
         raise ValidationError('Not a valid size')
 
 class Topping(models.Model):
