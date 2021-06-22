@@ -14,16 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from pizza.views import get_all_pizza,add_pizza,delete_order,get_order_by_size,get_order_by_type,get_order, update_order
+from django.urls import path,include
 
 urlpatterns = [
+    path('api/',include('pizza.urls',namespace='pizza')),
     path('admin/', admin.site.urls),
-    path('api/pizza',get_all_pizza),
-    path('api/add/pizza',add_pizza),
-    path('api/delete/pizza/<int:id>',delete_order),
-    path('api/get/pizza/size',get_order_by_size),
-    path('api/get/pizza/<int:id>',get_order),
-    path('api/get/pizza/type',get_order_by_type),
-    path('api/update/pizza/<int:id>',update_order),
 ]
