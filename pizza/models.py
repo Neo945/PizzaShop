@@ -10,14 +10,14 @@ def is_size_valid(value):
         raise ValidationError('Not a valid size')
 
 class Size(models.Model):
-    size = models.CharField([is_size_valid],max_length=50,null=False)
+    size = models.CharField(validators=[is_size_valid],max_length=50,null=False)
 
 class Topping(models.Model):
     topping = models.CharField(max_length=50,null=False)
 
 class Pizza(models.Model):
     name = models.CharField(max_length=50,null=False,blank=False)
-    type = models.CharField([is_valid],max_length=7,null=False)
+    type = models.CharField(validators=[is_valid],max_length=7,null=False)
     timestamp = models.DateTimeField(auto_now_add=True)
     size = models.ManyToManyField('size',related_name='sizes',blank=True,through='Size_pizza')
     topping = models.ManyToManyField('topping',related_name='toppings',blank=True,through='Topping_pizza')
