@@ -1,3 +1,4 @@
 Django
 .vscode
 */__pycache__
+*/migrations
