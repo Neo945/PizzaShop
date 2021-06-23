@@ -3,14 +3,16 @@ from django.core.exceptions import ValidationError
 from pizza.models import Pizza, Topping
 from pizza.serializer import PizzaCreateSerializer, PizzaSerializer, UpdateActionSerializer
 from django.shortcuts import render
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from django.utils import timezone
 import datetime
+from rest_framework.permissions import IsAuthenticated
 
 """
 Validated
 """
+@permission_classes([IsAuthenticated])
 @api_view(['GET','POST'])
 def get_order_by_size(request):
     size = str(request.data.get('size'))
@@ -19,6 +21,7 @@ def get_order_by_size(request):
         return Response(PizzaSerializer(qs,many=True).data,status=200)
     return Response({'message':'Not a valid size or request'},status=400)
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET','POST'])
 def get_order_by_type(request):
     type = str(request.data.get('type'))
@@ -27,6 +30,7 @@ def get_order_by_type(request):
         return Response(PizzaSerializer(qs,many=True).data,status=200)
     return Response({'message':'Not a valid type or request'},status=400)
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def get_order(request,id):
     qs = Pizza.objects.filter(pk=id)
@@ -34,10 +38,12 @@ def get_order(request,id):
         return Response(PizzaSerializer(qs.first()).data,status=200)
     return Response({'message':'order not found'},status=404)
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def get_all_pizza(request):
     return Response(PizzaSerializer(Pizza.objects.all(),many=True).data,status=200)
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET','DELETE'])
 def delete_order(request,id):
     qs = Pizza.objects.filter(pk=id)
@@ -48,21 +54,24 @@ def delete_order(request,id):
                 return Response({'message':'order cannot be deleted'},status=400)
             Pizza.objects.filter(pk=id).delete()
             return Response({'message':'order deleted successfully'},status=201)
-        return Response({'message':'Not Authorized'},status=403)
+        return Response({'message':'Not Authorized'},status=401)
     return Response({'message':'user not found'},status=200)
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET','POST'])
 def add_pizza(request):
     if request.method == 'POST':
-        data = request.data
-        serial = PizzaCreateSerializer(data=data)
-        if serial.is_valid() and data.get('topping'):
-            p = serial.save(user = request.user)
-            for topping in data['topping']:
-                qs = Topping.objects.get_or_create(topping=topping.lower())
-                p.topping.add(qs[0].id)
-            return Response({'message':'Ordered Successfully','order_no':p.id},status=201)
-        return Response({'message':'form is not valid'},status=400)
+        if request.user.is_authenticated:
+            data = request.data
+            serial = PizzaCreateSerializer(data=data)
+            if serial.is_valid() and data.get('topping'):
+                p = serial.save(user = request.user)
+                for topping in data['topping']:
+                    qs = Topping.objects.get_or_create(topping=topping.lower())
+                    p.topping.add(qs[0].id)
+                return Response({'message':'Ordered Successfully','order_no':p.id},status=201)
+            return Response({'message':'form is not valid'},status=400)
+        return Response({'message':'Not Authenticaed'},status=403)
     return Response({},status=200)
 """
 {
@@ -77,6 +86,7 @@ def is_valid(value):
     if value.lower() not in settings.PIZZA_TYPE:
         raise ValidationError('Not a valid type')
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET','POST'])
 def update_order(request,id):
     if request.method == 'POST':
