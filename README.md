@@ -6,7 +6,7 @@ mentioned in a README file on the repo. -->
 # PizzaShop
 A simple application for ordering pizza from a resturant.<br/> This application will store all the information about pizza which is ordered by the user.
 - The pizza can be of type:
-  - Regualr
+  - Regular
   - Square
 - The pizza can be of any size:
   - Small
