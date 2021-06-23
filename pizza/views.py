@@ -66,9 +66,10 @@ def add_pizza(request):
             serial = PizzaCreateSerializer(data=data)
             if serial.is_valid() and data.get('topping'):
                 p = serial.save(user = request.user)
-                for topping in data['topping']:
-                    qs = Topping.objects.get_or_create(topping=topping.lower())
-                    p.topping.add(qs[0].id)
+                if data.get('topping'):
+                    for topping in data['topping']:
+                        qs = Topping.objects.get_or_create(topping=topping.lower())
+                        p.topping.add(qs[0].id)
                 return Response({'message':'Ordered Successfully','order_no':p.id},status=201)
             return Response({'message':'form is not valid'},status=400)
         return Response({'message':'Not Authenticaed'},status=403)
@@ -99,10 +100,14 @@ def update_order(request,id):
                 if (qs.timestamp + datetime.timedelta(minutes=20)) < timezone.now():
                     return Response({'message':'order cannot be Updated'},status=400)
                 if data.get('action')=='add':
+                    if not data.get('toppings'):
+                        return Response({'message':'Form not valid'},status=400)
                     for topping in data.get('toppings'):
                         top = Topping.objects.get_or_create(topping=topping)
                         qs.topping.add(top[0])
                 elif data.get('action')=='remove':
+                    if not data.get('toppings'):
+                        return Response({'message':'Form not valid'},status=400)
                     for topping in data.get('toppings'):
                         top = Topping.objects.get(topping=topping)
                         qs.topping.remove(top[0])
