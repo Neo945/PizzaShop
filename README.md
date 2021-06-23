@@ -122,8 +122,10 @@ The format of the request body should be as mentiond below.
 > **_NOTE:_** The user should be logged in order to make this request
 
 Example
-|Reqest|Output|
+|Reqest|Response|
 |-|-|
+|<img src=".\Images\add request.png">|<img src=".\Images\add response.png">|
+
 
 ### 2. Delete an order
 This operation will delete an order from the database.<br/>
@@ -136,8 +138,9 @@ In order to perform this the user will send a **GET** request at this endpoint s
 > **_NOTE:_** The user should be logged in order to make this request and the order cannot be deleted after 20 mins.
 
 Example
-|Reqest|Output|
-|-|-|
+|Response|
+|-|
+|<img src=".\Images\delete response.png">|
 
 ### 3. Update an order
 This operation will update an order as per **POST** request send by the user.<br/> 
@@ -176,8 +179,9 @@ In order to perform this the user will send a **GET** request at this endpoint s
 > **_NOTE:_** The user should be logged in order to make this request.
 
 Example
-|Reqest|Output|
+|Reqest|Database|
 |-|-|
+|<img src=".\Images\add request.png">|<img src=".\Images\add response.png">|
 
 ### 5. Get orders by their size
 This operation will return all the orders with their details as per the size metioned in the **POST** request.<br/> 
