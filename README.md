@@ -4,6 +4,28 @@ and the accepted response for each endpoint should be
 mentioned in a README file on the repo. -->
 <!-- •	Include the steps to run the project as well -->
 # PizzaShop
+A simple application for ordering pizza from a resturant.<br/> This application will store all the information about pizza which is ordered by the user.
+- The pizza can be of type:
+  - Regualr
+  - Square
+- The pizza can be of any size:
+  - Small
+  - Large
+  - Medium
+  - extra large
+- And the user can add any types of toppings
+## Table of Contents
+- [Technologies](#technologies)
+- [Endpoints](#endpoints)
+- [Installation](#steps-to-install)
+- [Extras](#extras)
+
+## Technologies
+This Application is made using Django framework (3.2.4) with Django Rest framework (3.12.4), Django (1.3.6) and MongoDB for database.<br/>
+- Django is a python-based web framework that follows the model–template–views architectural pattern.<br/>
+- Django REST framework is a toolkit for building Web APIs in Django.<br/>
+- Djongo is used to connect Django with MongoDB server without changing the ORM.<br/>
+
 ## Steps to Install
 ### 1. Clone the project
 
