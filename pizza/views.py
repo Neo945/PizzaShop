@@ -101,8 +101,8 @@ def update_order(request,id):
             print(data)
             qs = Pizza.objects.filter(pk=data['id']).first()
             if request.user == qs.user:
-                if (qs.timestamp + datetime.timedelta(minutes=20)) < timezone.now():
-                    return Response({'message':'order cannot be Updated'},status=400)
+                # if (qs.timestamp + datetime.timedelta(minutes=20)) < timezone.now():
+                    # return Response({'message':'order cannot be Updated'},status=400)
                 if data.get('action')=='add':
                     if not data.get('toppings'):
                         return Response({'message':'Form not valid'},status=400)
