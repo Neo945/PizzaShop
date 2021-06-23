@@ -113,8 +113,8 @@ The format of the request body should be as mentiond below.
 ```javascript
 {
   "name":"", // Name of the order
-  "size":"",  // Size of the pizza ['regular','square']
-  "type":"",  //Type of pizza ['small','large','medium','extra large']
+  "size":"",  // Size of the pizza ['small','large','medium','extra large']
+  "type":"",  //Type of pizza ['regular','square']
   "topping":["toppings"] // Any toppings
 }
 ```
@@ -156,8 +156,8 @@ The format of the request body should be as mentiond below.
   "id":"", // Order number
   "action":"", // Action thats need to be performend in order to with the toppings ['add','remove']
   "name":"", // Updated name (required=False)
-  "size":"",  // updated Size ['regular','square'] (required=False)
-  "type":"",  // updated Type of pizza ['small','large','medium','extra large'] (required=False)
+  "size":"",  // updated Size ['small','large','medium','extra large'] (required=False)
+  "type":"",  // updated Type of pizza ['regular','square'] (required=False)
   "topping":["toppings"] // Any toppings (required=False)
 }
 ```
@@ -165,8 +165,9 @@ The format of the request body should be as mentiond below.
 > **_NOTE:_** The user should be logged in order to make this request and the order cannot be updated after 20 mins.
 
 Example
-|Reqest|Output|
+|Reqest|Response|
 |-|-|
+|<img src=".\Images\update request.png">|<img src=".\Images\update response.png">|
 
 ### 4. Get order Details
 This operation will return the order details as per order number specified in the **GET** request send by the user.<br/> 
@@ -179,9 +180,9 @@ In order to perform this the user will send a **GET** request at this endpoint s
 > **_NOTE:_** The user should be logged in order to make this request.
 
 Example
-|Reqest|Database|
-|-|-|
-|<img src=".\Images\add request.png">|<img src=".\Images\add response.png">|
+|Reqest|
+|-|
+|<img src=".\Images\update gat response.png">|
 
 ### 5. Get orders by their size
 This operation will return all the orders with their details as per the size metioned in the **POST** request.<br/> 
@@ -194,7 +195,7 @@ In order to perform this the user will send a **POST** request at this endpoint 
 The format of the request body should be as mentiond below.
 ```javascript
 {
-  "size":"",  // Size of the pizza ['regular','square']
+  "size":"",  // Size of the pizza  ['small','large','medium','extra large']
 }
 ```
 > **_NOTE:_** The user should be logged in order to make this request.
@@ -202,6 +203,7 @@ The format of the request body should be as mentiond below.
 Example
 |Reqest|Output|
 |-|-|
+|<img src=".\Images\size request.png">|<img src=".\Images\size response.png">|
 
 ### 6. Get orders by their type
 This operation will return all the orders with their details as per the type metioned in the **POST** request.<br/> 
@@ -214,7 +216,7 @@ In order to perform this the user will send a **POST** request at this endpoint 
 The format of the request body should be as mentiond below.
 ```javascript
 {
-  "type":"",  //Type of pizza ['small','large','medium','extra large']
+  "type":"",  //Type of pizza ['regular','square']
 }
 ```
 > **_NOTE:_** The user should be logged in order to make this request.
@@ -222,6 +224,7 @@ The format of the request body should be as mentiond below.
 Example
 |Reqest|Output|
 |-|-|
+|<img src=".\Images\type request.png">|<img src=".\Images\type response.png">|
 
 ## Extras
 Set DEBUG to False in order to see the default JSON response.
