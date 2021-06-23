@@ -15,20 +15,24 @@ Validated
 @permission_classes([IsAuthenticated])
 @api_view(['GET','POST'])
 def get_order_by_size(request):
-    size = str(request.data.get('size'))
-    qs = Pizza.objects.filter(size=size.lower())
-    if size.lower() in settings.PIZZA_SIZE:
-        return Response(PizzaSerializer(qs,many=True).data,status=200)
-    return Response({'message':'Not a valid size or request'},status=400)
+    if request.method == 'POST':
+        size = str(request.data.get('size'))
+        qs = Pizza.objects.filter(size=size.lower())
+        if size.lower() in settings.PIZZA_SIZE:
+            return Response(PizzaSerializer(qs,many=True).data,status=200)
+        return Response({'message':'Not a valid size or request'},status=400)
+    return Response({},status=200)
 
 @permission_classes([IsAuthenticated])
 @api_view(['GET','POST'])
 def get_order_by_type(request):
-    type = str(request.data.get('type'))
-    qs = Pizza.objects.filter(type=type.lower())
-    if type.lower() in settings.PIZZA_TYPE:
-        return Response(PizzaSerializer(qs,many=True).data,status=200)
-    return Response({'message':'Not a valid type or request'},status=400)
+    if request.method == 'POST':
+        type = str(request.data.get('type'))
+        qs = Pizza.objects.filter(type=type.lower())
+        if type.lower() in settings.PIZZA_TYPE:
+            return Response(PizzaSerializer(qs,many=True).data,status=200)
+        return Response({'message':'Not a valid type or request'},status=400)
+    return Response({},status=200)
 
 @permission_classes([IsAuthenticated])
 @api_view(['GET'])
