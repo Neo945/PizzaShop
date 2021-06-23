@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-^!7ax+4k(hizq@o_n8ig1w@7&*p3tj-8v9@ll&s9$jduv)un%+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -134,3 +134,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PIZZA_SIZE = ['small','large','medium','extra large']
 PIZZA_TYPE = ['regular','square']
+
+DEFAULT_RENDERER_CLASSES = [
+        'rest_framework.renderers.JSONRenderer',
+    ]
+DEFAULT_AUTHENTICATION_CLASSES= [
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+if DEBUG:
+    DEFAULT_RENDERER_CLASSES += [
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': DEFAULT_AUTHENTICATION_CLASSES,
+    'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES,
+}
