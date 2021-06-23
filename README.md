@@ -75,4 +75,4 @@ python manage.py createsuperuser # create a superuser
 
 ```
 ## Extras
-Set DEBUG as False in order to see the default JSON response.
+Set DEBUG to False in order to see the default JSON response.
